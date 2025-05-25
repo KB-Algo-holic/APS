@@ -1,0 +1,17 @@
+name: Notify Discord on Solve Commits
+
+on: push
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+    if: |
+      contains(github.event.head_commit.message, 'solve:')
+
+    steps:
+      - name: Send Discord notification
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "{\"content\": \"🧩 New solve commit pushed by ${{ github.actor }}: \`${{ github.event.head_commit.message }}\`\"}" \
+               ${{ secrets.DISCORD_WEBHOOK_URL }}
