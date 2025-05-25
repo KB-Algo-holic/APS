@@ -1,29 +1,4 @@
-name: Notify Discord on Solve Commits
-
-on: push
-
-jobs:
-  notify-discord:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check commit message for 'solve'
-        id: check
-        run: |
-          echo "Checking for 'solve' in commit message..."
-          if echo "${{ github.event.head_commit.message }}" | grep -iq "solve"; then
-            echo "found=true" >> $GITHUB_OUTPUT
-          else
-            echo "found=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Send Discord notification
-        if: steps.check.outputs.found == 'true'
-        run: |
-          curl -H "Content-Type: application/json" \
-               -X POST \
-               -d '{
-                 "content": "🧩 New solve commit pushed by ${{ github.actor }}: `${{ github.event.head_commit.message }}`",
-                 "username": "GitHub Action Bot"
-               }' \
-               "${{ secrets.DISCORD_WEBHOOK_URL }}"
+curl -H "Content-Type: application/json" \
+     -X POST \
+     -d '{"content": "테스트 메시지", "username": "Test Bot"}' \
+     "YOUR_DISCORD_WEBHOOK_URL"
