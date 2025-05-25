@@ -1,6 +1,17 @@
-- name: Send Discord Notification
-  if: steps.check.outputs.found == 'true'
-  uses: dawidd6/action-discord@v2
-  with:
-    webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-    content: "🧩 New solve commit pushed by ${{ github.actor }}: `${{ github.event.head_commit.message }}`"
+name: Discord Webhook Test
+
+on: [push]
+
+jobs:
+  discord-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send test message to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "content": "✅ GitHub Actions와 Discord Webhook 연결 테스트 성공!",
+                 "username": "GitHub Action Bot"
+               }' \
+               "${{ secrets.DISCORD_WEBHOOK_URL }}"
