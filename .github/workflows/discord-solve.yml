@@ -1,17 +1,28 @@
-name: Discord Webhook Test
+name: Discord Solve Commit Notify
 
 on: [push]
 
 jobs:
-  discord-test:
+  notify-discord:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Send test message to Discord
+      - name: Check commit message for 'solve'
+        id: check
+        run: |
+          if echo "${{ github.event.head_commit.message }}" | grep -iq "solve"; then
+            echo "found=true" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Discord notification
+        if: steps.check.outputs.found == 'true'
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
                -d '{
-                 "content": "✅ GitHub Actions와 Discord Webhook 연결 테스트 성공!",
+                 "content": "🧩 New solve commit pushed by ${{ github.actor }}: `${{ github.event.head_commit.message }}`",
                  "username": "GitHub Action Bot"
                }' \
                "${{ secrets.DISCORD_WEBHOOK_URL }}"
