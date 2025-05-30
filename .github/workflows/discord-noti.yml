@@ -1,6 +1,9 @@
 name: Discord Solve Commit Notify
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'src/**'
 
 jobs:
   notify-discord:
