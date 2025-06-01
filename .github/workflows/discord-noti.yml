@@ -26,6 +26,6 @@ jobs:
                -X POST \
                -d '{
                  "content": "✅ ${{ github.actor }} just completed an APS!\n`${{ github.event.head_commit.message }}`",
-                 "username": "Github Action Bot"
+                 "username": "Algo-Holic Bot"
                }' \
                "${{ secrets.DISCORD_WEBHOOK_URL }}"
