@@ -1,0 +1,28 @@
+# --------------------------
+# IntelliJ 관련
+.idea/
+*.iml
+out/
+
+# --------------------------
+# Java 관련
+*.class
+*.jar
+*.war
+*.ear
+
+# --------------------------
+# Python 관련
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.env
+.venv/
+.envrc
+*.egg-info/
+*.log
+
+# --------------------------
+# 기타
+.DS_Store
