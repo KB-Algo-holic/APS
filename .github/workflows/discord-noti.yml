@@ -3,7 +3,7 @@ name: Discord Solve Commit Notify
 on:
   push:
     paths:
-      - 'src/**'
+      - 'assignments/**'
 
 jobs:
   notify-discord:
