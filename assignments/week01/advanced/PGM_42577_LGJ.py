@@ -1,3 +1,7 @@
+# PGM 42577 - 전화번호 목록
+# 유형: 해쉬
+# 링크: https://school.programmers.co.kr/learn/courses/30/lessons/42577?language=python3
+
 def solution(phone_book):
     # 길이순 정렬
     phone_book.sort(key=len)
