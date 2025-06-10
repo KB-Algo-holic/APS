@@ -1,5 +1,5 @@
 # 아래 주석 양식을 필히 작성하여 주세요.
-# PGM 12909 - 올바른 괄호
+# PGM 12909 - 올바른 괄호.
 # 유형: 스택/큐
 # 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12909?language=java
 
