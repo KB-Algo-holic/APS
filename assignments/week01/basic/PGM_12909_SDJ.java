@@ -1,30 +1,30 @@
 # 아래 주석 양식을 필히 작성하여 주세요.
-# PGM 12906 - 같은 숫자는 싫어
+# PGM 12909 - 올바른 괄호
 # 유형: 스택/큐
-# 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12906?language=java
+# 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12909?language=java
 
-import java.util.*;
-
-public class Solution {
-    public int[] solution(int []arr) {
-        int[] answer = {};
+class Solution {
+    boolean solution(String s) {
+        boolean answer = false;
         
-        List<Integer> list = new ArrayList<Integer>();
+        if(s.charAt(0) != '(') return false;
+        if(s.length() < 1) return false;
         
-        int bfNum = -1;
-        for(int num : arr) {
-            if(bfNum != num) {
-                list.add(num);
-                bfNum = num;
-            }
+        int leftChar = 0;
+        int rightChar = 0;
+        
+        for(int idx=0; idx<s.length(); idx++){
+            char cc = s.charAt(idx);
+            
+            if(cc == '(') leftChar++;
+            if(cc == ')') rightChar++;
         }
         
-        answer = new int[list.size()];
-        System.out.println("Hello Java");
-        for(int idx=0; idx<answer.length; idx++){
-            answer[idx] = list.get(idx);
+        if(leftChar == rightChar) {
+            answer = true;
         }
-        
+
+
         return answer;
     }
 }
