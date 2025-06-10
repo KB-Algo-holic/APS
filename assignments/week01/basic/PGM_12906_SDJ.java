@@ -1,5 +1,5 @@
 # 아래 주석 양식을 필히 작성하여 주세요.
-# PGM 12906 - 같은 숫자는 싫어
+# PGM 12906 - 같은 숫자는 싫어.
 # 유형: 스택/큐
 # 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12906?language=java
 
