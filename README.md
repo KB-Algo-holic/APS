@@ -60,7 +60,7 @@ aps-study/
 │   ├── gyujeong/
 │   │   └── PGM_42577_LGJ.py
 │   ├── byeonghee/
-│   │   └── BOJ_42577_LGJ.java
+│   │   └── BOJ_31466_LBH.java
 └── README.md
 ```
 
