@@ -127,9 +127,9 @@ refactor: [SWEA] 1952 - 반복문 최적화
 
 ## 📌 PR 규칙
 
-- **PR 제목**: `[이름] 플랫폼 문제번호 - 제목`
-  예: `[규정] BOJ 1234 - 수 이어 쓰기 1`
-- **PR 담당자 & label**: 본인 & 카테고리 선택(문제 제출 시 submit 문서 수정 시 docs) 
+- **PR 제목**: `[이름] [week{}] submit assignment & study : APS {cnt} 개 완료`
+  예: `[이규정] [week01] submit assignment & study : APS 2 개 완료 `
+- **PR 담당자 & label**: 본인 & 카테고리 선택(문제 제출 시 submit / 문서 수정 시 docs) 
 - 가능하면 리뷰를 1건 이상 받은 후 머지합니다.
 - 자유롭게 코드 리뷰와 의견을 남겨주세요 🙌
 
