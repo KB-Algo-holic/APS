@@ -19,6 +19,7 @@ after = content.split(END_TAG)[-1]
 
 new_block = f"{START_TAG}\n{output}\n{END_TAG}"
 new_content = before + new_block + after
+print(new_content)
 
 # 4. README.md 갱신
 with open(README_FILE, "w", encoding="utf-8") as f:
