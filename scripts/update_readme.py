@@ -7,6 +7,7 @@ README_FILE = "README.md"
 # 1. Bash 스크립트를 실행해서 표 데이터 가져오기
 print("▶️ Generating solve stats from git log...")
 output = subprocess.check_output(["bash", "scripts/generate_stats.sh"]).decode().strip()
+print(output)
 
 # 2. README.md 불러오기
 with open(README_FILE, "r", encoding="utf-8") as f:
