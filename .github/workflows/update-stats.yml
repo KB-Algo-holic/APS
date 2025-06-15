@@ -1,0 +1,34 @@
+name: 📊 Update Solve Stats
+
+on:
+  schedule:
+    - cron: '0 15 * * 0'  # 매주 월요일 자정 UTC (한국 기준 오전 15시)
+  workflow_dispatch:      # 수동 실행 허용
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 전체 커밋 기록 필요
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Generate stats and update README
+        run: |
+          chmod +x scripts/generate_stats.sh
+          python3 scripts/update_readme.py
+
+      - name: Commit and push if changes exist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "📊 Update solve stats"
+          git push
