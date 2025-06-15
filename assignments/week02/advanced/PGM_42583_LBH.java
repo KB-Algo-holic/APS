@@ -1,3 +1,7 @@
+// PGM 42583 - 다리를 지나는 트럭
+// 유형: 큐
+// 링크: https://school.programmers.co.kr/learn/courses/30/lessons/42583
+
 import java.util.*;
 
 class Solution {
