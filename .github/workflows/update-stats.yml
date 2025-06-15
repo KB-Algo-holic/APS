@@ -22,7 +22,6 @@ jobs:
 
       - name: Generate stats and update README
         run: |
-          chmod +x scripts/generate_stats.sh
           python3 scripts/update_readme.py
 
       - name: Configure git user
