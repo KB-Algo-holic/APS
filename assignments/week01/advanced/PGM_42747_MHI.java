@@ -1,5 +1,4 @@
 import java.util.Arrays;
-
 class Solution {
     public int solution(int[] citations) {
         Arrays.sort(citations);
