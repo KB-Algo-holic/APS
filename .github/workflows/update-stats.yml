@@ -33,9 +33,10 @@ jobs:
       - name: Commit changes
         run: |    
           git checkout -b update-solve-stats
+          git pull --rebase origin update-solve-stats || true
           git add README.md
           git diff --cached --quiet || git commit -m "📊 Update solve stats"
-          git pull --rebase origin update-solve-stats || true
+          
 
       - name: Push branch
         run: git push --set-upstream origin update-solve-stats
