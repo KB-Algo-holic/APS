@@ -25,10 +25,28 @@ jobs:
           chmod +x scripts/generate_stats.sh
           python3 scripts/update_readme.py
 
-      - name: Commit and push if changes exist
+      - name: Configure git user
         run: |
-          git config user.name "Gyujeong-Lee"
-          git config user.email "rbwjd0101@naver.com"
+          git config user.name "algo-holic[bot]"
+          git config user.email "12345678+username@users.noreply.github.com"
+
+      - name: Commit changes
+        run: |
+          git checkout -b update-solve-stats
           git add README.md
           git diff --cached --quiet || git commit -m "📊 Update solve stats"
-          git push
+
+      - name: Push branch
+        run: git push --set-upstream origin update-solve-stats
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: ":robot: Update solve stats"
+          branch: update-solve-stats
+          base: main
+          title: "자동 업데이트: solve stats"
+          body: |
+            자동으로 생성된 PR입니다.  
+            통계 데이터가 업데이트되었습니다.
