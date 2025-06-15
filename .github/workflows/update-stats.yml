@@ -27,8 +27,8 @@ jobs:
 
       - name: Commit and push if changes exist
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "Gyujeong-Lee"
+          git config user.email "rbwjd0101@naver.com"
           git add README.md
           git diff --cached --quiet || git commit -m "📊 Update solve stats"
           git push
