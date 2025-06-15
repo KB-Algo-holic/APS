@@ -49,7 +49,6 @@
 ## 🧮 Solve 커밋 통계
 
 <!-- SOLVE_STATS_START -->
-
 <!-- SOLVE_STATS_END -->
 
 ---
