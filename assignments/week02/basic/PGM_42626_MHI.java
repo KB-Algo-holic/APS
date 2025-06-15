@@ -1,15 +1,23 @@
 import java.util.*;
+
 class Solution {
-    public int[] solution(int[] array, int[][] commands) {
-        int[] answer = new int[commands.length];
+    public int solution(int[] scoville, int K) {
 
-        for (int i = 0; i < commands.length; i++) {
-            int[] command = commands[i];
+        PriorityQueue<Integer> que = new PriorityQueue<>((a,b) -> a-b);
+        for (int num : scoville) {
+            que.add(num);
+        }
 
-            int[] tmp = Arrays.copyOfRange(array, command[0] - 1, command[1]);
-            Arrays.sort(tmp);
+        int answer = 0;
 
-            answer[i] = tmp[command[2] - 1];
+        while (que.peek() < K) {
+            if (que.size() < 2) return -1;
+
+            int a = que.poll();
+            int b = que.poll();
+
+            que.add(a + b*2);
+            answer++;
         }
 
         return answer;
