@@ -12,10 +12,14 @@ print(output)
 # 2. README.md 불러오기
 with open(README_FILE, "r", encoding="utf-8") as f:
     content = f.read()
+    print(content)
 
 # 3. 삽입 구간 교체
 before = content.split(START_TAG)[0]
 after = content.split(END_TAG)[-1]
+print(before)
+print(after)
+
 new_block = f"{START_TAG}\n{output}\n{END_TAG}"
 new_content = before + new_block + after
 
