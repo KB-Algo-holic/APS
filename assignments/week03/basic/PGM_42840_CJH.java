@@ -77,15 +77,3 @@ public class Solution {
         
         return finalAnswer;
     }
-    
-    
-    
-    public static void main(String[] args) {
-        
-        
-        int[] q = {1,3,2,4,2};
-        
-        new Solution().solution(q);
-        ;
-        
-    }
