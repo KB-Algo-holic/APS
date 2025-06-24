@@ -23,19 +23,13 @@ jobs:
       - name: Configure git user
         run: |
           git config user.name "algo-holic[bot]"
-          git config user.email "12345678+username@users.noreply.github.com"
+          git config user.email "Kb-algo-holic@users.noreply.github.com"
                 
-      - name: 🧹 Delete remote temp branch if exists
-        run: |
-          git push origin --delete update-solve-stats || echo "No remote branch to delete"
-      
-      - name: 🏗️ Create clean branch for stats updateAdd commentMore actions
+      - name: 🏗️ Checkout main and create new branch
         run: |
           git fetch origin
-          git checkout main
-          git pull origin main
-          git checkout -b update-solve-stats
-
+          git checkout -B update-solve-stats origin/main
+          
       - name: Generate stats and update README
         run: |
           python3 scripts/update_readme.py
@@ -46,7 +40,14 @@ jobs:
           git diff --cached --quiet || git commit -m "📊 Update solve stats"
           
       - name: Push branch
-        run: git push origin update-solve-stats
+        run:  git push -f origin update-solve-stats
+        
+      - name: Check current HEAD and branches
+        run: |
+          git log --oneline -n 5
+          git branch -a
+          git status
+          git show --summary
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
