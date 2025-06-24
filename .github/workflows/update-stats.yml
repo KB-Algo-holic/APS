@@ -36,19 +36,21 @@ jobs:
 
       - name: ✅ Commit changes if any
         run: |
+          git branch -r 
           git add README.md
           git diff --cached --quiet && echo "No changes to commit" || git commit -m "📊 Update solve stats"
 
       - name: 🚀 Force push to update branch
-        run: git push -f origin update-solve-stats
+        run: |
+          git status
+          git push -f origin update-solve-stats
 
       - name: 🔍 Debug info
         run: |
           echo "🔽 Current branch and log:"
           git branch -a
           git log --oneline -n 3
-          echo "🔽 Remote branches:"
-          git ls-remote --heads origin
+          git status
 
       - name: 🔁 Create or update Pull Request
         uses: peter-evans/create-pull-request@v5
