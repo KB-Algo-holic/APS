@@ -28,7 +28,8 @@ jobs:
       - name: 🧱 Create clean update branch
         run: |
           git fetch origin
-          git checkout -B update-solve-stats origin/main
+          git checkout update-solve-stats
+          git reset --hard origin/update-solve-stats
 
       - name: 📊 Generate stats and update README
         run: |
