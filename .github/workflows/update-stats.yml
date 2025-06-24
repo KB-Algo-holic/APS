@@ -46,7 +46,7 @@ jobs:
           git diff --cached --quiet || git commit -m "📊 Update solve stats"
           
       - name: Push branch
-        run: git push --set-upstream origin update-solve-stats
+        run: git push origin update-solve-stats
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
