@@ -39,9 +39,9 @@ jobs:
           declare -A stats
 
           git fetch origin main --depth=100
-          git log origin/main --pretty='%an__SEP__%ad__SEP__%s' --date=format-local:'%Y-%m-%d %H:%M:%S' > all_logs.txt
+          git log origin/main --pretty='%an%x09%ad%x09%s' --date=format-local:'%Y-%m-%d %H:%M:%S' > all_logs.txt
 
-          while IFS="__SEP__" read -r name date message; do
+          while IFS=$'\t' read -r name date message; do
             # 날짜 범위 필터링
             COMMIT_TS=$(date -d "$date" +%s)
             echo "DEBUG: $name - $date - $(date -d "$date" +%s)"
