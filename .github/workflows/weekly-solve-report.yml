@@ -32,10 +32,14 @@ jobs:
           WEEKS_SINCE_BASE=$(( DAYS_SINCE_BASE / 7 ))
           CURRENT_WEEK=$(( BASE_WEEK + WEEKS_SINCE_BASE ))
 
+          echo "NOW_TS: ${NOW_TS} "
+          echo "BASE_TS : ${BASE_TS} "
+          echo "END_TS : ${END_TS} "
+          
           declare -A stats
 
           git fetch origin main --depth=100
-          git log origin/main --pretty='%an__SEP__%ad__SEP__%s' --date=iso > all_logs.txt
+          git log origin/main --pretty='%an__SEP__%ad__SEP__%s' --date=format-local:'%Y-%m-%d %H:%M:%S' > all_logs.txt
 
           while IFS="__SEP__" read -r name date message; do
             # 날짜 범위 필터링
