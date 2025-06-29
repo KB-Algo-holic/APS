@@ -13,36 +13,39 @@ jobs:
       - name: 📦 Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # 전체 커밋 이력 필요
-          
+          fetch-depth: 0
+
       - name: Count solve commits for this week
         id: solve
+        shell: bash
         run: |
-          # 기준일: 2025-06-23 (4주차 시작일)
+          set -e
+
           BASE_DATE="2025-06-23"
           BASE_WEEK=4
 
           NOW_TS=$(date +%s)
           BASE_TS=$(date -d "$BASE_DATE" +%s)
 
-          # 현재 주차 계산
           DAYS_SINCE_BASE=$(( (NOW_TS - BASE_TS) / 86400 ))
           WEEKS_SINCE_BASE=$(( DAYS_SINCE_BASE / 7 ))
           CURRENT_WEEK=$(( BASE_WEEK + WEEKS_SINCE_BASE ))
 
           declare -A stats
 
-          # main 브랜치에서 solve 커밋 추출
+          # 로그를 파일로 저장한 후 읽기
           git fetch origin main --depth=100
-          git log origin/main --grep="solve" --pretty='%an|%ad' --date=iso | while IFS="|" read -r name date; do
+          git log origin/main --grep="solve" --pretty='%an|%ad' --date=iso > log.txt
+
+          while IFS="|" read -r name date; do
             COMMIT_TS=$(date -d "$date" +%s)
             DAYS=$(( (COMMIT_TS - BASE_TS) / 86400 ))
             WEEK_OF_COMMIT=$(( BASE_WEEK + (DAYS / 7) ))
 
-          if [ "$WEEK_OF_COMMIT" -eq "$CURRENT_WEEK" ]; then
-            stats["$name"]=$(( ${stats["$name"]:-(0)} + 1 ))
-          fi
-          done
+            if [ "$WEEK_OF_COMMIT" -eq "$CURRENT_WEEK" ]; then
+              stats["$name"]=$(( ${stats["$name"]:-0} + 1 ))
+            fi
+          done < log.txt
 
           echo "📊 이번 주 Solve 커밋 통계 (${CURRENT_WEEK}주차)" > message.txt
           echo "" >> message.txt
@@ -56,6 +59,10 @@ jobs:
           echo 'CONTENT<<EOF' >> $GITHUB_ENV
           cat message.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
+
+          echo "==== 🐛 DEBUG START ===="
+          cat message.txt
+          echo "==== 🐛 DEBUG END ===="
 
       - name: Send Discord notification
         run: |
