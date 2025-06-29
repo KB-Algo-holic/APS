@@ -2,66 +2,60 @@ name: Weekly Solve Report
 
 on:
   schedule:
-    - cron: '59 14 * * 0'  # 매주 일요일 23:59 (KST → UTC 기준 14:59)
-  workflow_dispatch:  # 수동 실행도 가능
+    - cron: '59 14 * * 0'  # 매주 일요일 23:59 (KST 기준)
+  workflow_dispatch:
 
 jobs:
-  weekly-report:
+  notify-discord:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Count solve commits for this week
-        id: solve-stats
+        id: solve
         run: |
-          # 기준 주차 정보: 2025-06-24이 4주차
-          base_date="2025-06-24"
-          base_week=4
+          # 기준일: 2025-06-24 (4주차 시작일)
+          BASE_DATE="2025-06-24"
+          BASE_WEEK=4
 
-          now=$(date +%s)
-          base_ts=$(date -d "$base_date" +%s)
+          NOW_TS=$(date +%s)
+          BASE_TS=$(date -d "$BASE_DATE" +%s)
 
-          # 이번 주차 계산
-          days_since_base=$(( (now - base_ts) / 86400 ))
-          weeks_since_base=$(( days_since_base / 7 ))
-          current_week=$(( base_week + weeks_since_base ))
+          # 현재 주차 계산
+          DAYS_SINCE_BASE=$(( (NOW_TS - BASE_TS) / 86400 ))
+          WEEKS_SINCE_BASE=$(( DAYS_SINCE_BASE / 7 ))
+          CURRENT_WEEK=$(( BASE_WEEK + WEEKS_SINCE_BASE ))
 
           declare -A stats
 
-          # solve 커밋 수 집계 (작성자별, 이번 주차만)
-          git log main --grep="solve" --pretty='%an|%ad' --date=iso | while IFS="|" read -r name date; do
-              ts=$(date -d "$date" +%s)
-              days_since_base=$(( (ts - base_ts) / 86400 ))
-              week_of_commit=$(( base_week + (days_since_base / 7) ))
+          # main 브랜치에서 solve 커밋 추출
+          git fetch origin main --depth=100
+          git log origin/main --grep="solve" --pretty='%an|%ad' --date=iso | while IFS="|" read -r name date; do
+            COMMIT_TS=$(date -d "$date" +%s)
+            DAYS=$(( (COMMIT_TS - BASE_TS) / 86400 ))
+            WEEK_OF_COMMIT=$(( BASE_WEEK + (DAYS / 7) ))
 
-              if [ "$week_of_commit" -eq "$current_week" ]; then
-                  stats["$name"]=$(( stats["$name"] + 1 ))
-              fi
+            if [ "$WEEK_OF_COMMIT" -eq "$CURRENT_WEEK" ]; then
+              stats["$name"]=$(( stats["$name"] + 1 ))
+            fi
           done
 
-          # 결과 파일 생성
-          echo "" > result.txt
-          echo "📊 이번 주 Solve 커밋 랭킹 (${current_week}주차)" >> result.txt
-          echo "" >> result.txt
-          echo "| 이름     | 커밋 수 |" >> result.txt
-          echo "|----------|---------|" >> result.txt
+          echo "📊 이번 주 Solve 커밋 랭킹 (${CURRENT_WEEK}주차)" > message.txt
+          echo "" >> message.txt
+          echo "| 이름     | 커밋 수 |" >> message.txt
+          echo "|----------|---------|" >> message.txt
 
           for name in "${!stats[@]}"; do
-              printf "| %-8s | %-7d |\n" "$name" "${stats[$name]}"
-          done | sort -t '|' -k3 -nr >> result.txt
+            printf "| %-8s | %-7d |\n" "$name" "${stats[$name]}"
+          done | sort -t '|' -k3 -nr >> message.txt
 
-          echo 'content<<EOF' >> $GITHUB_OUTPUT
-          echo '```\n'"$(cat result.txt)"'\n```' >> $GITHUB_OUTPUT
-          echo 'EOF' >> $GITHUB_OUTPUT
+          echo 'CONTENT<<EOF' >> $GITHUB_ENV
+          cat message.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
 
       - name: Send Discord notification
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{
-                 "content": "'"${{ steps.solve-stats.outputs.content }}"'",
-                 "username": "Algo-Holic Bot"
-               }' \
+               -d "$(jq -n --arg content "$CONTENT" --arg username "Algo-Holic Bot" \
+                 '{content: $content, username: $username}')" \
                "${{ secrets.DISCORD_WEBHOOK_URL }}"
