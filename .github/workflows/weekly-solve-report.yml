@@ -18,7 +18,8 @@ jobs:
       - name: Count solve commits for this week
         id: solve
         run: |
-          BASE_DATE="2025-06-22"  # 기준일: 월요일(수요일 커밋 포함하려면 월요일 기준 추천)
+          # 기준일: 월요일
+          BASE_DATE="2025-06-22"
           BASE_WEEK=4
           
           NOW_TS=$(date +%s)
@@ -40,7 +41,7 @@ jobs:
               WEEK_OF_COMMIT=$(( BASE_WEEK + (DAYS / 7) ))
           
               if [ "$WEEK_OF_COMMIT" -eq "$CURRENT_WEEK" ]; then
-                  stats["$name"]=$(( stats["$name"] + 1 ))
+                stats["$name"]=$(( ${stats["$name"]:-(0)} + 1 ))
               fi
           done
 
