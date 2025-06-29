@@ -6,10 +6,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  notify-discord:
+  weekly-solve-report:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 전체 커밋 이력 필요
+          
       - name: Count solve commits for this week
         id: solve
         run: |
