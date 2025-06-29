@@ -18,31 +18,30 @@ jobs:
       - name: Count solve commits for this week
         id: solve
         run: |
-          # 기준일: 월요일
-          BASE_DATE="2025-06-22"
+          # 기준일: 2025-06-23 (4주차 시작일)
+          BASE_DATE="2025-06-23"
           BASE_WEEK=4
-          
+
           NOW_TS=$(date +%s)
           BASE_TS=$(date -d "$BASE_DATE" +%s)
-          
+
+          # 현재 주차 계산
           DAYS_SINCE_BASE=$(( (NOW_TS - BASE_TS) / 86400 ))
           WEEKS_SINCE_BASE=$(( DAYS_SINCE_BASE / 7 ))
           CURRENT_WEEK=$(( BASE_WEEK + WEEKS_SINCE_BASE ))
-          
-          git log main --grep="solve" --pretty='%an|%ad' --date=iso | while IFS="|" read -r name date; do
-              COMMIT_TS=$(date -d "$date" +%s)
-              DAYS=$(( (COMMIT_TS - BASE_TS) / 86400 ))
-          
-              # 음수 되는 경우 방지 (기준일 이전 커밋 제외)
-              if [ "$DAYS" -lt 0 ]; then
-                  continue
-              fi
-          
-              WEEK_OF_COMMIT=$(( BASE_WEEK + (DAYS / 7) ))
-          
-              if [ "$WEEK_OF_COMMIT" -eq "$CURRENT_WEEK" ]; then
-                stats["$name"]=$(( ${stats["$name"]:-(0)} + 1 ))
-              fi
+
+          declare -A stats
+
+          # main 브랜치에서 solve 커밋 추출
+          git fetch origin main --depth=100
+          git log origin/main --grep="solve" --pretty='%an|%ad' --date=iso | while IFS="|" read -r name date; do
+            COMMIT_TS=$(date -d "$date" +%s)
+            DAYS=$(( (COMMIT_TS - BASE_TS) / 86400 ))
+            WEEK_OF_COMMIT=$(( BASE_WEEK + (DAYS / 7) ))
+
+          if [ "$WEEK_OF_COMMIT" -eq "$CURRENT_WEEK" ]; then
+            stats["$name"]=$(( ${stats["$name"]:-(0)} + 1 ))
+          fi
           done
 
           echo "📊 이번 주 Solve 커밋 통계 (${CURRENT_WEEK}주차)" > message.txt
