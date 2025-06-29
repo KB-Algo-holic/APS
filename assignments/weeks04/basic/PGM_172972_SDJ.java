@@ -1,5 +1,5 @@
 # 아래 주석 양식을 필히 작성하여 주세요.
-# PGM 172927 - 광물캐기
+# PGM 172927 - 광물캐기 
 # 유형: 그리디
 # 링크: https://school.programmers.co.kr/learn/courses/30/lessons/172927
 
