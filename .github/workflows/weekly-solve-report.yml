@@ -44,12 +44,15 @@ jobs:
           while IFS="__SEP__" read -r name date message; do
             # 날짜 범위 필터링
             COMMIT_TS=$(date -d "$date" +%s)
+            echo "DEBUG: $name - $date - $(date -d "$date" +%s)"
+            echo "COMMIT_TS : ${COMMIT_TS} "
             if [ "$COMMIT_TS" -lt "$BASE_TS" ] || [ "$COMMIT_TS" -ge "$END_TS" ]; then
+              echo " not in range "
               continue
             fi
 
             # solve가 포함된 커밋만
-            if echo "$message" | grep -iq "solve"; then
+            if echo "$message" | grep -iq '^solve:'; then
               stats["$name"]=$(( ${stats["$name"]:-0} + 1 ))
             fi
           done < all_logs.txt
