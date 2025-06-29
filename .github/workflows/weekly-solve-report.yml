@@ -26,6 +26,7 @@ jobs:
 
           NOW_TS=$(date +%s)
           BASE_TS=$(date -d "$BASE_DATE" +%s)
+          END_TS=$((BASE_TS + 7 * 86400))  # 1주일 범위 끝 (6월 30일 00:00)
 
           DAYS_SINCE_BASE=$(( (NOW_TS - BASE_TS) / 86400 ))
           WEEKS_SINCE_BASE=$(( DAYS_SINCE_BASE / 7 ))
@@ -33,36 +34,32 @@ jobs:
 
           declare -A stats
 
-          # 로그를 파일로 저장한 후 읽기
           git fetch origin main --depth=100
-          git log origin/main --pretty='%H %an|%ad|%s' --date=iso > all_logs.txt
+          git log origin/main --pretty='%an__SEP__%ad__SEP__%s' --date=iso > all_logs.txt
 
-          while IFS="|" read -r author date_subject; do
-            name=$(echo "$author" | cut -d' ' -f2-)  # 커밋 해시 이후 이름
-            commit_date=$(echo "$date_subject" | cut -d'|' -f1)
-            commit_msg=$(echo "$date_subject" | cut -d'|' -f2-)
+          while IFS="__SEP__" read -r name date message; do
+            # 날짜 범위 필터링
+            COMMIT_TS=$(date -d "$date" +%s)
+            if [ "$COMMIT_TS" -lt "$BASE_TS" ] || [ "$COMMIT_TS" -ge "$END_TS" ]; then
+              continue
+            fi
 
-            if echo "$commit_msg" | grep -iq "solve"; then
-              COMMIT_TS=$(date -d "$commit_date" +%s)
-              DAYS=$(( (COMMIT_TS - BASE_TS) / 86400 ))
-              WEEK_OF_COMMIT=$(( BASE_WEEK + (DAYS / 7) ))
-
-              if [ "$WEEK_OF_COMMIT" -eq "$CURRENT_WEEK" ]; then
-                stats["$name"]=$(( ${stats["$name"]:-0} + 1 ))
-              fi
+            # solve가 포함된 커밋만
+            if echo "$message" | grep -iq "solve"; then
+              stats["$name"]=$(( ${stats["$name"]:-0} + 1 ))
             fi
           done < all_logs.txt
 
           {
             echo "📊 ${CURRENT_WEEK}주차 Solve 커밋 통계"
             echo ""
-            echo '```'  # 코드 블록 시작
+            echo '```'
             printf "%-10s | %s\n" "이름" "커밋 수"
             echo "-------------------------"
             for name in "${!stats[@]}"; do
               printf "%-10s | %d\n" "$name" "${stats[$name]}"
             done | sort -t '|' -k2 -nr
-            echo '```'  # 코드 블록 끝
+            echo '```'
           } > message.txt
 
           echo 'CONTENT<<EOF' >> $GITHUB_ENV
@@ -72,6 +69,7 @@ jobs:
           echo "==== 🐛 DEBUG START ===="
           cat message.txt
           echo "==== 🐛 DEBUG END ===="
+
 
       - name: Send Discord notification
         run: |
