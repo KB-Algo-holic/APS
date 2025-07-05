@@ -5,7 +5,7 @@
 
 import java.util.*;
 
-class Solution {
+class Solution { 
     public int solution(int k, int m, int[] score) {
         int answer = 0;
         Arrays.sort(score);
