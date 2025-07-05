@@ -5,7 +5,7 @@
 
 import java.util.*;
 
-class Solution {
+class Solution { 
 	
     int answer = 0;
     
