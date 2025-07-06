@@ -1,0 +1,87 @@
+name: Weekly Solve Report
+
+on:
+  schedule:
+    - cron: '59 14 * * 0'  # 매주 일요일 23:59 (KST 기준)
+  workflow_dispatch:
+
+jobs:
+  weekly-solve-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Count solve commits for this week
+        id: solve
+        shell: bash
+        run: |
+          set -e
+
+          BASE_DATE="2025-06-23"
+          BASE_WEEK=4
+
+          NOW_TS=$(date +%s)
+          BASE_TS=$(date -d "$BASE_DATE" +%s)
+          END_TS=$((BASE_TS + 7 * 86400))  # 1주일 범위 끝 (6월 30일 00:00)
+
+          DAYS_SINCE_BASE=$(( (NOW_TS - BASE_TS) / 86400 ))
+          WEEKS_SINCE_BASE=$(( DAYS_SINCE_BASE / 7 ))
+          CURRENT_WEEK=$(( BASE_WEEK + WEEKS_SINCE_BASE ))
+
+          echo "NOW_TS: ${NOW_TS} "
+          echo "BASE_TS : ${BASE_TS} "
+          echo "END_TS : ${END_TS} "
+          
+          declare -A stats
+
+          git fetch origin main --depth=100
+          git log origin/main --pretty='%an%x09%ad%x09%s' --date=format-local:'%Y-%m-%d %H:%M:%S' > all_logs.txt
+
+          while IFS=$'\t' read -r name date message; do
+            # 날짜 범위 필터링
+            COMMIT_TS=$(date -d "$date" +%s)
+            echo "DEBUG: $name - $date - $(date -d "$date" +%s)"
+            echo "COMMIT_TS : ${COMMIT_TS} "
+            if [ "$COMMIT_TS" -lt "$BASE_TS" ] || [ "$COMMIT_TS" -ge "$END_TS" ]; then
+              echo " not in range "
+              continue
+            fi
+
+            # solve가 포함된 커밋만
+            if echo "$message" | grep -iq '^solve:'; then
+              stats["$name"]=$(( ${stats["$name"]:-0} + 1 ))
+            fi
+          done < all_logs.txt
+
+          {
+            echo "📊 ${CURRENT_WEEK}주차 Solve 커밋 통계"
+            echo ""
+            echo '```'
+            printf "%-10s | %s\n" "이름" "커밋 수"
+            echo "-------------------------"
+            for name in "${!stats[@]}"; do
+              printf "%-10s | %d\n" "$name" "${stats[$name]}"
+            done | sort -t '|' -k2 -nr
+            echo '```'
+          } > message.txt
+
+          echo 'CONTENT<<EOF' >> $GITHUB_ENV
+          cat message.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+          echo "==== 🐛 DEBUG START ===="
+          cat message.txt
+          echo "==== 🐛 DEBUG END ===="
+
+
+      - name: Send Discord notification
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d "$(jq -n --arg content "$CONTENT" --arg username "Algo-Holic Bot" \
+                 '{content: $content, username: $username}')" \
+               "${{ secrets.DISCORD_WEBHOOK_URL }}"
