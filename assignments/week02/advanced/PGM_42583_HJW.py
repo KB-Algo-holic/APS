@@ -55,9 +55,5 @@ def solution(bridge_length, weight, truck_weights):
         del(bridge[0])
         second += 1
     answer = second
-<<<<<<< HEAD
-    return answer
-=======
     return answer
 '''
->>>>>>> 498987e00b064dadce5b1300270a76f23c977797
