@@ -1,5 +1,5 @@
 # PGM 42862 - 체육복
-# 유형: BFS
+# 유형: 그리디
 # 링크: https://school.programmers.co.kr/learn/courses/30/lessons/42862
 
 def solution(n, lost, reserve):
