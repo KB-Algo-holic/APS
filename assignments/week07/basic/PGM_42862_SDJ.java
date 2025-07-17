@@ -1,7 +1,7 @@
 # 아래 주석 양식을 필히 작성하여 주세요.
-# PGM 12939 - 체육복
+# PGM 42862 - 체육복
 # 유형: 그리디
-# 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12939
+# 링크: https://school.programmers.co.kr/learn/courses/30/lessons/42862
 
 import java.util.*; 
 
