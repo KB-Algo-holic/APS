@@ -1,6 +1,6 @@
 # 아래 주석 양식을 필히 작성하여 주세요.
-# PGM 12939 - 최댓값과 최솟값
-# 유형: 연습문제
+# PGM 12939 - 최대값과 최소값
+# 유형: 연습문제제
 # 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12939
 
 import java.util.*;
