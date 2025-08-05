@@ -1,5 +1,5 @@
 # PGM 150370 - 개인정보 수집 유효기간
-# 유형: 문자열
+# 유형: 문자열 
 # 링크: https://school.programmers.co.kr/learn/courses/30/lessons/150370
 
 def date_to_days(day):
