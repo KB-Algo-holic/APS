@@ -41,4 +41,3 @@ def solution(land):
                     answer[k] += cnt
     
     return max(answer)
-        
