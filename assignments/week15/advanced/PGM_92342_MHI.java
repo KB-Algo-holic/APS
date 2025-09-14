@@ -1,28 +1,63 @@
 import java.util.*;
+
 class Solution {
-    public int[] solution(int[][] dice) {
+    static int[] arr = new int[11];
+    static int[] answer = { -1 };
+    static int minN = -1;
+    public int[] solution(int n, int[] info) {
 
-        HashMap<int[], Integer> map = new HashMap<>();
-        for (int i=0; i<dice.length; i++) {
-            map.put(dice[i], i);
-        }
-
-        Arrays.sort(dice, (a, b) -> {
-            int cnt = 0;
-            for (int i=0; i<6; i++) {
-                for (int j=0; j<6; j++) {
-                    cnt += b[j] - a[i];
-                }
-            }
-            return cnt == 0 ? map.get(a) - map.get(b) : cnt;
-        });
-
-        int[] answer = new int[dice.length / 2];
-        for (int i=0; i<answer.length; i++) {
-            answer[i] = map.get(dice[i]) + 1;
-        }
-        Arrays.sort(answer);
+        makeAnswer(info, 0, 0, n);
 
         return answer;
+    }
+
+    private static void makeAnswer(int[] apeach, int idx, int cnt, int n) {
+        if(idx == 11) {
+            if(cnt == n) {
+                int apScore = 0, liScore = 0;
+                for(int i=0; i < 11; i++) {
+                    if(apeach[i] == 0 && arr[i] == 0) {
+                        continue;
+                    }
+                    if(apeach[i] >= arr[i]) apScore += 10 - i;
+                    else liScore += 10 - i;
+                }
+
+                if(liScore > apScore) {
+                    if(liScore - apScore > minN) {
+                        minN = liScore - apScore;
+                        answer = arr.clone();
+                    }
+
+                    else if(liScore - apScore == minN) {
+                        for(int i = 10; i >= 0; i--) {
+                            if(answer[i] < arr[i]) {
+                                answer = arr.clone();
+                                return;
+                            }
+                            else if(answer[i] > arr[i]) return;
+                        }
+                    }
+                }
+            }
+            return;
+        }
+
+        if(cnt+1 + apeach[idx] <= n) {
+            arr[idx] = apeach[idx] + 1;
+            makeAnswer(apeach, idx + 1, cnt + 1 + apeach[idx], n);
+            arr[idx] = 0;
+        }
+        if(apeach[idx] != 0) {
+            for(int i = 0; i <= apeach[idx]; i++) {
+                arr[idx] = i;
+                makeAnswer(apeach, idx + 1, cnt + i, n);
+                arr[idx] = 0;
+            }
+        }
+        if(apeach[idx] == 0) {
+            makeAnswer(apeach, idx+1, cnt, n);
+        }
+
     }
 }
