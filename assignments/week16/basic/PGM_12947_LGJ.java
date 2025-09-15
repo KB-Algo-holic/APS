@@ -1,3 +1,8 @@
+// PGM 하샤드 수
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/12947#
+
+
 class Solution {
     public boolean solution(int origin) {
         boolean answer = true;
