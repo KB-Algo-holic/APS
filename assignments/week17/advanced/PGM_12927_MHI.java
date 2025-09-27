@@ -1,37 +1,45 @@
-import java.util.*;
 class Solution {
-    public long solution(int n, int[] works) {
-
-        Arrays.sort(works);
-
-        long sum=0, spare=n;
-        int min=works[works.length-1], index=works.length;
-
-        for(int i=works.length-1; i>=0; i--) {
-            if(works[i]<min){
-                index=i;
-                sum = (works.length-1-i)*(min-works[i]);
-                if(spare-sum>0) {
-                    spare-=sum;
+    static char[] how = {'+','-','*'};
+    static Long max=Long.MIN_VALUE;
+    public long solution(String expression) {
+        for(int i=0; i<3; i++) makeAnswer((1<<i), i, expression);
+        return max;
+    }
+    static void makeAnswer(int bit, int next, String line) {
+        StringBuilder sb = new StringBuilder();
+        char preHow=0, nowHow=0;
+        int from=0;
+        long number=0;
+        for(int i=0; i<line.length(); i++) {
+            if((from!=i&&(line.charAt(i)=='+'||line.charAt(i)=='-'||line.charAt(i)=='*'))||i==line.length()-1) {
+                nowHow = line.charAt(i);
+                if(i==line.length()-1) i++;
+                if(preHow==how[next]) {
+                    if(next==0)
+                        number+=Long.parseLong(line.substring(from,i));
+                    else if(next==1)
+                        number-=Long.parseLong(line.substring(from,i));
+                    else if(next==2) {
+                        number*=Long.parseLong(line.substring(from,i));
+                    }
                 }
-                else break;
-                min=works[i];
+                else {
+                    if(preHow!=0) sb.append(number).append(preHow);
+                    number=Long.parseLong(line.substring(from,i));
+                }
+                if(i==line.length()) sb.append(number);
+                preHow = nowHow;
+                from=i+1;
             }
-            if(i==0) index=-1;
         }
-
-        int spareL = works.length-1-index;
-        int p = (int)spare/spareL;
-        int c = (int)spare%spareL;
-        long ans = 0;
-
-        for(int i=index+1; i<works.length; i++) works[i]=min-p;
-        for(int i=index+1; i<index+1+c; i++) works[i]--;
-        for(int i=0; i<works.length; i++) {
-            long next = works[i];
-            if(next<0) next=0;
-            ans+=next*next;
+        if(bit==7) {
+            max=Math.max(max, Math.abs(Long.parseLong(sb.toString())));
+            return;
         }
-        return ans;
+        for(int i=0; i<3; i++) {
+            if((bit&(1<<i))==0) {
+                makeAnswer(bit|(1<<i), i, sb.toString());
+            }
+        }
     }
 }
