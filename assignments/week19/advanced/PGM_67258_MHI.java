@@ -1,55 +1,40 @@
+import java.util.*;
+
 class Solution {
-    public String solution(String m, String[] musicinfos) {
+    public int[] solution(String[] gems) {
+        Set<String> gemSet = new HashSet<>(Arrays.asList(gems));
+        int n = gems.length;
 
-        int t=0;
-        String ans="(None)";
+        int s = 0;
+        int l = 0, r = n;
 
-        for(int i=0; i<musicinfos.length; i++) {
-            String[] line = musicinfos[i].split(",");
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            Map<String, Integer> temp = new HashMap<>();
+            int start = 0;
+            boolean found = false;
 
-            int start, end, len=0;
+            for (int i = 0; i < n; i++) {
+                temp.put(gems[i], temp.getOrDefault(gems[i], 0) + 1);
 
-            String[] time = line[0].split(":");
-            start = Integer.parseInt(time[0])*60+Integer.parseInt(time[1]);
-            time = line[1].split(":");
-            end = Integer.parseInt(time[0])*60+Integer.parseInt(time[1]);
-            String name = line[2];
-
-            for(char next : line[3].toCharArray()) {
-                if(next!='#') len++;
-            }
-            String[] music = new String[len];
-            int index=0;
-
-            for(int j=0; j<line[3].length(); j++) {
-                if(j==line[3].length()-1) music[index]=line[3].substring(j);
-                else if(line[3].charAt(j+1)!='#') {
-                    music[index++]=line[3].substring(j,j+1);
+                if (i >= mid) {
+                    String leftGem = gems[start];
+                    temp.put(leftGem, temp.get(leftGem) - 1);
+                    if (temp.get(leftGem) == 0) temp.remove(leftGem);
+                    start++;
                 }
-                else {
-                    music[index++]=line[3].substring(j,j+2);
-                    j++;
+
+                if (temp.size() == gemSet.size()) {
+                    s = start;
+                    r = mid - 1;
+                    found = true;
+                    break;
                 }
             }
 
-            if(end-start>t) {
-                int a = (end-start)/len;
-                int b = (end-start)%len;
-                StringBuilder sb = new StringBuilder();
-                for(int j=0; j<a; j++) sb.append(line[3]);
-                for(int j=0; j<b; j++) sb.append(music[j]);
-                String word = sb.toString();
-                index=0;
-                while((index = word.indexOf(m,index))>=0) {
-                    if(index+m.length()==word.length()||word.charAt(index+m.length())!='#') {
-                        t=end-start;
-                        ans=name;
-                        break;
-                    }
-                    index++;
-                }
-            }
+            if (!found) l = mid + 1;
         }
-        return ans;
+
+        return new int[] { s + 1, s + l };
     }
 }
