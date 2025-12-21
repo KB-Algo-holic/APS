@@ -1,4 +1,4 @@
-// PGM 12913 - 땅따먹기
+// PGM 131130 - 혼자 놀기의 달인
 // 유형: DP
 // 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12913
 
