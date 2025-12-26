@@ -1,5 +1,5 @@
 # BOJ 7576 - 토마토
-# 유형: DFS
+# 유형: BFS
 # 링크: https://www.acmicpc.net/problem/7576
 
 import sys
