@@ -1,0 +1,66 @@
+name: 📊 Update Solve Stats
+
+on:
+  schedule:
+    - cron: '0 15 * * 0'  # 매주 월요일 자정 UTC (한국 오전 0시)
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 전체 커밋 이력 필요
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 🛠️ Configure Git
+        run: |
+          git config user.name "algo-holic[bot]"
+          git config user.email "12345678+username@users.noreply.github.com"
+
+      - name: 🧱 Create clean update branch
+        run: |
+          git fetch origin
+          git checkout update-solve-stats
+          git reset --hard origin/update-solve-stats
+
+      - name: 📊 Generate stats and update README
+        run: |
+          python3 scripts/update_readme.py
+
+      - name: ✅ Commit changes if any
+        run: |
+          git branch -r 
+          git add README.md
+          git diff --cached --quiet && echo "No changes to commit" || git commit -m "📊 Update solve stats"
+
+      - name: 🚀 Force push to update branch
+        run: |
+          git status
+          git push -f origin update-solve-stats
+
+      - name: 🔍 Debug info
+        run: |
+          echo "🔽 Current branch and log:"
+          git branch -a
+          git log --oneline -n 3
+          git status
+
+      - name: 🔁 Create or update Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: ":robot: Update solve stats"
+          branch: update-solve-stats
+          base: main
+          title: "자동 업데이트: solve stats"
+          body: |
+            자동 생성된 PR입니다.  
+            주간 통계가 반영되었습니다.
