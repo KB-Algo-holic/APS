@@ -79,6 +79,6 @@ public class Main {
                 max = Math.max(max, map[i][j]);
             }
         }
-        return max - 1; 
+        return max - 1;
     }
 }
