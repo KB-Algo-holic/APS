@@ -23,6 +23,6 @@ class Solution {
             B = A % B;
             A = temp;
         }
-        return A; 
+        return A;
     }
 }
