@@ -47,6 +47,7 @@ equals()
 contains()
 startsWith()
 endsWith()
+
 ---
 
 ## 핵심 알고리즘
