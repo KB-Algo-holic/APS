@@ -1,5 +1,5 @@
 # PGM 60057 - 문자열 압축
-# 유형: 스택
+# 유형: 문자열
 # 링크: https://school.programmers.co.kr/learn/courses/30/lessons/60057
 
 def solution(s):
