@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution {
+class PGM_181932_YHS {
     public String solution(String code) {
         String answer = "";
 
