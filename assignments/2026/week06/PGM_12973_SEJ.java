@@ -1,3 +1,7 @@
+# PGM 12973 - 짝지어 제거하기
+# 유형: 스택
+# 링크: https://school.programmers.co.kr/learn/courses/30/lessons/12973
+
 import java.util.*;
 
 class Solution{
