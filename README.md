@@ -37,11 +37,21 @@
 |--------|--------------------|------------|
 | 이규정 | `@gyujeong-lee`    | 리더       |
 | 이병희 | `@mrcodemania`     | 부리더     |
-| 서동준 | `@DONGJUN82`     | 팀원     |
-| 최준홍 | `@JunHong-Choi`     | 팀원     |
 | 문학일 | `@HighMoon0118`     | 팀원     |
 | 차원석 | `@devStone91`     | 팀원     |
 | 황지원 | `@WonHwang`     | 팀원      |
+| 강창유 | `@openprime15`     | 팀원      |
+| 김기도 | `@kido-a`     | 팀원      |
+| 김정식 | `@formalKim`     | 팀원      |
+| 김지혜 | `@jackie-jakki`     | 팀원      |
+| 김진호 | `@Gnoring`     | 팀원      |
+| 박성태 | `@sungtaep`     | 팀원      |
+| 송호준 | `@yksong0303`     | 팀원      |
+| 서은진 | `@thisiseunjin`     | 팀원      |
+| 윤현수 | `@laugh4mile`     | 팀원      |
+| 이익승 | `@ikseunglee-note`     | 팀원      |
+| 정채은 | `@Chae-EunJeong`     | 팀원      |
+| 함성호 | `@Haamseongho`     | 팀원      |
 
 > 🙋 팀원이 추가되면 이 표를 업데이트해주세요.
 
