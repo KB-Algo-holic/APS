@@ -7,7 +7,7 @@ public class PGM_120880_YHS {
         int[] answer = new int [size];
         Integer arr[] = new Integer[size];
 
-        Arrays.sort(numlist);
+//        Arrays.sort(numlist);
         for(int i=0; i<size ;i++){
             arr[i] = numlist[i];
         }
@@ -26,6 +26,7 @@ public class PGM_120880_YHS {
         for(int i=0; i<size; i++){
             answer[i] = arr[i];
         }
+
         return answer;
     }
 
@@ -33,6 +34,6 @@ public class PGM_120880_YHS {
         int[] numlist = {1, 2, 3, 4, 5, 6};
         int n = 4;
 
-        solution(numlist, n);
+        System.out.println(Arrays.toString(solution(numlist, n)));
     }
 }
