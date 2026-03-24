@@ -3,7 +3,6 @@ import java.io.*;
 
 class Solution {
     public String[] solution(String[] strings, int n) {
-        String[] answer = {};
         Arrays.sort(strings, (a, b) -> {
             
             // n번째 글자 같으면 사전순 정렬 
