@@ -1,3 +1,7 @@
+// PGM_67256 키패드 누르기
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/67256
+
 class Solution {
     public String solution(int[] numbers, String hand) {
         int map[][] = {{3,1},{0,0},{0,1},{0,2},{1,0},{1,1},{1,2},{2,0},{2,1},{2,2}};
