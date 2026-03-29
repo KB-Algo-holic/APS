@@ -11,9 +11,17 @@ public class PGM_67256_HSH {
 
         System.out.println(result);
     }
-
+    
     private String solution(int[] numbers, String hand) {
         StringBuilder sb = new StringBuilder();
+        /*
+         * 0 1 2
+         * 3 4 5
+         * 6 7 8
+         * * 9 #
+         * 
+         * 0이 0, 0으로 하고 왼손이 * 이니까 3, 0 오른손은 #이니까 3, 2로 시작
+         */
         // 왼손 시작
         int leftX = 3, leftY = 0; // 행, 열
         //  오른손 시작
@@ -24,18 +32,21 @@ public class PGM_67256_HSH {
             int[] targetPos = getTargetPosition(num);
             int x = targetPos[0];
             int y = targetPos[1];
-            // 1, 4, 7 일
+            // 1, 4, 7 일 -> 무조건 왼쪽
             if (num == 1 || num == 4 || num == 7) {
                 sb.append("L");
                 leftX = x;
                 leftY = y;
             }
-            // 3, 6, 9 일때
+            // 3, 6, 9 일때 -> 무조건 오른쪽
             else if (num == 3 || num == 6 || num == 9) {
                 sb.append("R");
                 rightX = x;
                 rightY = y;
-            } else {
+            } 
+            // 2, 5, 8, 0 일때 -> 가까운 손으로 누르기 
+            // 거리는 맨하탄 거리로 계산 -> |x1 - x2| + |y1 - y2| 
+            else {
                 // 2, 5, 8, 0 일때
                 int leftHandDistance = Math.abs(leftX - x) + Math.abs(leftY - y);
                 int rightHandDistance = Math.abs(rightX - x) + Math.abs(rightY - y);
@@ -64,7 +75,14 @@ public class PGM_67256_HSH {
     }
 
     private int[] getTargetPosition(int number) {
-
+        /*
+         * 0 1 2
+         * 3 4 5
+         * 6 7 8
+         * * 9 #
+         *
+         * 좌표로해서 보여주기
+         */
         switch (number) {
             case 1:
                 return new int[] { 0, 0 };
