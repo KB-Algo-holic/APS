@@ -1,3 +1,7 @@
+// PGM 42748 - K번째수
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/42748
+
 import java.util.*;
 class Solution {
     public int[] solution(int[] array, int[][] commands) {
