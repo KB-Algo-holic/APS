@@ -1,4 +1,6 @@
-import java.util.*;
+// PGM - 181932 코드 처리하기
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/181932
 
 class PGM_181932_YHS {
     public String solution(String code) {

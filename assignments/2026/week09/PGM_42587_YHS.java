@@ -1,3 +1,7 @@
+// PGM - 42587 프로세스
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/42587
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.PriorityQueue;

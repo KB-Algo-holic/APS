@@ -1,3 +1,7 @@
+// PGM - 176962 과제 진행하기
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/176962
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

@@ -1,3 +1,6 @@
+// PGM - 12909 올바른 괄호
+// 스택
+// https://school.programmers.co.kr/learn/courses/30/lessons/12909
 import java.util.Stack;
 
 public class PGM_12909_YHS {

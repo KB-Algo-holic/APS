@@ -1,3 +1,7 @@
+// PGM - 72410 문자열 밀기
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/72410
+
 public class PGM_72410_YHS {
     public String solution(String new_id) {
         String answer = "";

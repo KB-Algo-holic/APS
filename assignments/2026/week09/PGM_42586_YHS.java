@@ -1,3 +1,7 @@
+// PGM - 42586 기능개발
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/42586
+
 import java.util.ArrayList;
 
 public class PGM_42586_YHS {
