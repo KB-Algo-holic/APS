@@ -1,3 +1,7 @@
+// PGM - 120880 특이한 정렬
+// 정렬
+// https://school.programmers.co.kr/learn/courses/30/lessons/120880
+
 import java.util.Arrays;
 import java.util.Comparator;
 

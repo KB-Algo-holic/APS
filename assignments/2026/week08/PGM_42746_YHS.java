@@ -1,8 +1,8 @@
-import org.w3c.dom.Node;
+// PGM - 2746 가장 큰 수
+// 정렬 (문자열)
+// https://school.programmers.co.kr/learn/courses/30/lessons/42746
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class PGM_42746_YHS {

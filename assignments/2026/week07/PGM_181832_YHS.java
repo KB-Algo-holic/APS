@@ -1,3 +1,7 @@
+// PGM - 181832 정수를 나선형으로 배치하기
+// 구현
+// https://school.programmers.co.kr/learn/courses/30/lessons/181832
+
 public class PGM_181832_YHS {
     public int[][] solution(int n) {
         int[][] answer = new int[n][n];

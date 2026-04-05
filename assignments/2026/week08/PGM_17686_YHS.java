@@ -1,3 +1,7 @@
+// PGM - 17686 파일명정렬
+// 정렬
+// https://school.programmers.co.kr/learn/courses/30/lessons/17686
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
