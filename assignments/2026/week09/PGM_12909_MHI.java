@@ -1,16 +1,25 @@
+import java.util.*;
 class Solution {
-    boolean solution(String s) {
-        int count = 0;
-        for (char word : s.toCharArray()) {
-            if (word == '(') {
-                count++;
-            } else {
-                count--;
-            }
+    public String solution(String[] participant, String[] completion) {
 
-            if (count < 0) return false;
+        HashMap<String, Integer> map = new HashMap();
+        for (String word : completion) {
+            if (map.containsKey(word)) {
+                map.put(word, map.get(word) + 1);
+            } else {
+                map.put(word, 1);
+            }
         }
 
-        return count == 0;
+        for (String word : participant) {
+            if (map.containsKey(word)) {
+                if (map.get(word) == 0) return word;
+                else map.put(word, map.get(word) - 1);
+            } else {
+                return word;
+            }
+        }
+
+        return "";
     }
 }
