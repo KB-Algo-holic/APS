@@ -1,7 +1,6 @@
 // PGM_172928 공원 산책
 // 매트릭스 만들어서 구현
 // https://school.programmers.co.kr/learn/courses/30/lessons/172928
-
 class Solution {
     public int[] solution(String[] park, String[] routes) {
         int[] answer = {0, 0};
