@@ -1,6 +1,6 @@
 // PGM 92334 - 신고 결과 받기
 // 구현
-// https://school.programmers.co.kr/learn/courses/30/lessons/12909
+// https://school.programmers.co.kr/learn/courses/30/lessons/92334
 
 import java.util.*;
 import java.util.stream.Collectors;
