@@ -46,6 +46,7 @@ public class PGM_172928_HSH {
 		for (int i = 0; i < routes.length; i++) {
 			String dir = routes[i].split(" ")[0]; // 방
 			String walkCount = routes[i].split(" ")[1]; // 걷는 횟수
+			
 			int prevX = x; // 이동할 위치는 x가 되고 이전 위치는 prevX
 			int prevY = y; // 이동할 위치는 y가 되고 이전 위치는 prevY
 			// 처음 시작은 S의 위치가 될 것이고 걸어가는 횟수만큼 방향대로 이동
