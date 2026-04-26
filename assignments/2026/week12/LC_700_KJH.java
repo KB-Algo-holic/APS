@@ -1,4 +1,4 @@
-// LC search-in-a-binary-search-tree
+// LC 700 search-in-a-binary-search-tree
 // 구현
 // https://leetcode.com/problems/search-in-a-binary-search-tree/
 
