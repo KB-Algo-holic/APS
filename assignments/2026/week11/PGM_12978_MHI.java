@@ -1,3 +1,6 @@
+// PGM 12978 - 배달
+// https://school.programmers.co.kr/learn/courses/30/lessons/12978?language=java
+
 import java.util.*;
 class Solution {
     static int[] dist;

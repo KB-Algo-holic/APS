@@ -1,3 +1,7 @@
+// PGM 42892 - 길찾기 게임
+// 트리
+// https://school.programmers.co.kr/learn/courses/30/lessons/42892?language=java
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
