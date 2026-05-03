@@ -10,7 +10,7 @@ class Solution {
         
         for(int i= 0 ;i<score.length ; i++){
             
-            pq.add(score[i]);
+            pq.offer(score[i]);
             
             if(pq.size()>k){
                 pq.poll();
