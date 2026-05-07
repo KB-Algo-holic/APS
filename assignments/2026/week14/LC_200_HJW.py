@@ -1,7 +1,7 @@
 # LC 200 - Number of Islands
 # 유형: BFS
 # 링크: https://leetcode.com/problems/number-of-islands/
-git commit -m "solve: [LC] 200 - Number of Islands 풀이 완료"
+
 from collections import deque
 
 class Solution:
