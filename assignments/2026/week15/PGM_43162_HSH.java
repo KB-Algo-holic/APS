@@ -1,6 +1,6 @@
 package week15;
 
-public class PGK_43162_HSH {
+public class PGM_43162_HSH {
     private static boolean visited[];
 
     public static void main(String[] args) {
