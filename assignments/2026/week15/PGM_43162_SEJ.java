@@ -1,5 +1,5 @@
 // PGM - 43162 네트워크
-// 유니온파인드
+// UNION & FIND
 // https://school.programmers.co.kr/learn/courses/30/lessons/43162
 
 import java.util.*;
