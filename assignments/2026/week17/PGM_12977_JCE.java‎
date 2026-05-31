@@ -1,0 +1,78 @@
+/*
+* PGM 12977 - 소수 만들기
+* https://school.programmers.co.kr/learn/courses/30/lessons/12977
+* /
+
+import java.util.*;
+
+class Solution {
+    static int[] numbers;
+    static int answer;
+
+    public static int solution(int[] nums) {
+
+        answer = 0;
+
+        // 1. nums 배열중에 3개 뽑기
+
+        numbers = new int[3];
+
+        comb(0, 0, nums);
+
+        return answer;
+
+    }
+
+    private static void comb(int cnt, int start, int[] nums) {
+
+        if (cnt == 3) {
+
+            // 2. 3개의 합이 소수인지 확인
+
+            int sum = sumOfNumbers(numbers);
+
+            if (isPrime(sum)) {
+
+                answer++;
+
+            }
+
+            return;
+
+        }
+
+        for (int i = start; i < nums.length; i++) {
+
+            numbers[cnt] = nums[i];
+
+            comb(cnt + 1, i + 1, nums);
+
+        }
+
+    }
+
+    private static boolean isPrime(int sum) {
+
+        for (int i = 2; i < sum; i++) {
+
+            if (sum % i == 0) return false;
+
+        }
+
+        return true;
+
+    }
+
+    private static int sumOfNumbers(int[] numbers) {
+
+        int sum = 0;
+
+        for (int i = 0; i < numbers.length; i++) {
+
+            sum += numbers[i];
+
+        }
+
+        return sum;
+    }
+}
