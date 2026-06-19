@@ -1,6 +1,6 @@
 // PGM 12924 - 숫자의 표현
 // 구현
-// https://school.programmers.co.kr/learn/courses/30/lessons/12924?language=java
+// https://school.programmers.co.kr/learn/courses/30/lessons/12924
 
 class Solution {
     public int solution(int n) {
