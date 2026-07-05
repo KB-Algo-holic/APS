@@ -8,7 +8,7 @@ def solution(n):
     a = 1
     b = 2
     
-    if n == 1:
+    if n == 1:  
         return a
     if n == 2:
         return b
