@@ -25,7 +25,7 @@ public class PGM_84512_HSH {
             count += 1;
             if (current.equals(target)) {
                 return true;
-            }
+            }   
         }
         // 최대 5번까지 돌도록! (모음사전))
         if(depth == 5){
