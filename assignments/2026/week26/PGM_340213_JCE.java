@@ -16,50 +16,56 @@ commands를 모두 수행하면서
 
 class Solution {
     static int videoLen, opStart, opEnd;
-    public String solution(String video_len, String pos, String op_start, String op_end, String[] commands) {
+       public static String solution(String video_len, String pos, String op_start, String op_end, String[] commands) {
         String answer = "";
-        
-        videoLen = changeStringToInt(video_len);
-        int currentPos = changeStringToInt(pos);
-        opStart = changeStringToInt(op_start);
-        opEnd = changeStringToInt(op_end);
-        
-        for(int i = 0; i < commands.length; i++) {
-            String command = commands[i];
-            if (isOpening(currentPos, opStart, opEnd))
-                currentPos = opEnd;
-            switch(command){
-                case "prev":
-                    moveTime(currentPos, -10);
-                    System.out.println("prev");
-                    break;
-                case "next":
-                    System.out.println("next");
-                    break;
-            }
+        int num_video_len = changeToInt(video_len);
+        int num_pos = changeToInt(pos);
+        int num_op_start = changeToInt(op_start);
+        int num_op_end = changeToInt(op_end);
+
+        // 현재 위치가 오프닝 시간에 걸리는지 확인
+        if (num_op_start <= num_pos && num_pos <= num_op_end) {
+            num_pos = num_op_end;
         }
-        
+        for (int i = 0; i < commands.length; i++) {
+
+            // 사용자 명령 수행
+            if (commands[i].equals("prev")) {
+                num_pos -= 10;
+                if (num_pos < 0) num_pos = 0;
+
+            } else { // "next"
+                num_pos += 10;
+                if (num_pos > num_video_len) num_pos = num_video_len;
+            }
+
+            // 현재 위치가 오프닝 시간에 걸리는지 확인
+            if (num_op_start <= num_pos && num_pos <= num_op_end) {
+                num_pos = num_op_end;
+            }
+
+        }
+
+        answer = changeToTime(num_pos);
         return answer;
     }
 
-    private int moveTime(int currentPos, int time) {
-        int cur = currentPos + time;
-        
-        if (cur < 0) return 0;
-        
-        
+    private static String changeToTime(int num_pos) {
+        int mm = num_pos / 60;
+        int ss = num_pos % 60;
+
+        return String.format("%02d:%02d", mm, ss);
     }
-    
-    private boolean isOpening(int currentPos, int opStart, int opEnd) {
-        if (currentPos >= opStart && currentPos <= opEnd) {
-            return true;
-        }
-        return false;
+
+    private static int changeToInt(String time) {
+        int num = 0;
+        String[] test = time.split(":");
+
+        num = (Integer.parseInt(test[0]) * 60);
+        num += Integer.parseInt(test[1]);
+
+        return num;
     }
-    
-    private int changeStringToInt(String stringTime) {
-        String[] times = stringTime.split(":");
-        return Integer.parseInt(times[0]) * 100 + Integer.parseInt(times[1]);
-    }
+
     
 }
