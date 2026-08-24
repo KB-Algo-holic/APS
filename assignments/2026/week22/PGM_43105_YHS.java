@@ -1,4 +1,4 @@
-// PGM - 43105 L3_멀리뛰기
+// PGM - 43105 L3_정수삼각형
 // DP
 // https://school.programmers.co.kr/learn/courses/30/lessons/43105?language=java
 public class PGM_43105_YHS {

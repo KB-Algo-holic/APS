@@ -1,4 +1,4 @@
-// PGM - 250136 석유시추
+// PGM - 250136 L2_석유시추
 // BFS
 // https://school.programmers.co.kr/learn/courses/30/lessons/250136
 import java.util.*;
