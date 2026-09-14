@@ -27,4 +27,4 @@ class Solution:
 
         for n1, n2 in edges:
             if not getUnion(n1,n2):
-                return [n1,n2]  
+                return [n1,n2]
