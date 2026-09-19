@@ -1,6 +1,6 @@
 // LC 526 Beautiful Arrangement
-// 완전탐색(순열)
-// https://leetcode.com/problems/beautiful-arrangement/description/?utm_source=chatgpt.com
+// 완전탐색(순열, 백트래킹)
+// https://leetcode.com/problems/beautiful-arrangement/description/
 
 class Solution {
 
