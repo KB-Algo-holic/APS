@@ -1,6 +1,6 @@
 // LC - 698 Partition to K Equal Sum Subsets
 // 완전탐색
-// https://chatgpt.com/c/6aae162b-7fa8-83ee-bb7d-cd311b0f05e2
+// https://leetcode.com/problems/partition-to-k-equal-sum-subsets/submissions/2169865978/
 
 
 class Solution {
